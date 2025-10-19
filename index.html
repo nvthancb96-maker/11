@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Chúc Mừng Ngày Phụ Nữ Việt Nam 20/10 💖</title>
+  <style>
+    body {
+      margin: 0;
+      padding: 0;
+      background-color: #ffe6f2;
+      overflow: hidden;
+      font-family: 'Poppins', sans-serif;
+      text-align: center;
+      height: 100vh;
+    }
+    h1 {
+      color: #e91e63;
+      margin-top: 50px;
+      font-size: 2.5rem;
+      text-shadow: 1px 1px 3px #fff;
+    }
+    .gift-box {
+      position: relative;
+      width: 180px;
+      height: 180px;
+      margin: 100px auto 20px;
+      background: #ff80ab;
+      border-radius: 15px;
+      cursor: pointer;
+      box-shadow: 0 8px 15px rgba(0,0,0,0.2);
+      transition: transform 0.4s;
+    }
+    .gift-box:hover {
+      transform: scale(1.05);
+    }
+    .lid {
+      position: absolute;
+      width: 180px;
+      height: 40px;
+      top: -40px;
+      left: 0;
+      background: #ff4081;
+      border-radius: 10px 10px 0 0;
+      transition: transform 0.6s;
+      transform-origin: bottom;
+    }
+    .gift-box.open .lid {
+      transform: rotateX(160deg);
+    }
+    .ribbon {
+      position: absolute;
+      background: #fff;
+    }
+    .ribbon.vert {
+      width: 20px;
+      height: 180px;
+      left: 80px;
+      top: 0;
+    }
+    .ribbon.horiz {
+      width: 180px;
+      height: 20px;
+      top: 80px;
+      left: 0;
+    }
+    .message {
+      opacity: 0;
+      font-size: 1.5rem;
+      color: #d81b60;
+      transition: opacity 1s;
+      font-weight: bold;
+    }
+    .show-message {
+      opacity: 1;
+    }
+    /* Hiệu ứng hoa rơi */
+    .flower {
+      position: fixed;
+      top: -10px;
+      width: 20px;
+      height: 20px;
+      background-image: url('https://i.imgur.com/oQ9dY9W.png');
+      background-size: cover;
+      animation: fall linear forwards;
+      z-index: 10;
+    }
+    @keyframes fall {
+      0% { transform: translateY(0) rotate(0deg); opacity: 1; }
+      100% { transform: translateY(100vh) rotate(360deg); opacity: 0.3; }
+    }
+    .music-control {
+      position: fixed;
+      bottom: 15px;
+      right: 20px;
+      background: #ff80ab;
+      border: none;
+      color: white;
+      padding: 10px 15px;
+      border-radius: 25px;
+      cursor: pointer;
+      font-size: 14px;
+      box-shadow: 0 3px 6px rgba(0,0,0,0.2);
+    }
+  </style>
+</head>
+<body>
+  <h1>💐 Chúc Mừng Ngày Phụ Nữ Việt Nam 20/10 💐</h1>
+  <div class="gift-box" id="giftBox">
+    <div class="lid"></div>
+    <div class="ribbon vert"></div>
+    <div class="ribbon horiz"></div>
+  </div>
+  <div class="message" id="message">
+    💖 Chúc bạn luôn xinh đẹp, rạng rỡ và hạnh phúc trong ngày 20/10! 💖
+  </div>
+
+  <audio id="bgMusic" loop>
+    <source src="https://cdn.pixabay.com/download/audio/2023/05/22/audio_41f69e9a3a.mp3?filename=sweet-piano-melody-14486.mp3" type="audio/mp3">
+  </audio>
+
+  <button class="music-control" id="musicBtn">🔊 Bật nhạc</button>
+
+  <script>
+    const giftBox = document.getElementById('giftBox');
+    const message = document.getElementById('message');
+    const bgMusic = document.getElementById('bgMusic');
+    const musicBtn = document.getElementById('musicBtn');
+    let musicPlaying = false;
+
+    giftBox.addEventListener('click', () => {
+      giftBox.classList.add('open');
+      setTimeout(() => {
+        message.classList.add('show-message');
+        startFlowers();
+        if (!musicPlaying) {
+          bgMusic.play();
+          musicPlaying = true;
+          musicBtn.innerText = '🔇 Tắt nhạc';
+        }
+      }, 800);
+    });
+
+    musicBtn.addEventListener('click', () => {
+      if (musicPlaying) {
+        bgMusic.pause();
+        musicPlaying = false;
+        musicBtn.innerText = '🔊 Bật nhạc';
+      } else {
+        bgMusic.play();
+        musicPlaying = true;
+        musicBtn.innerText = '🔇 Tắt nhạc';
+      }
+    });
+
+    function startFlowers() {
+      for (let i = 0; i < 20; i++) {
+        createFlower();
+      }
+    }
+
+    function createFlower() {
+      const flower = document.createElement('div');
+      flower.classList.add('flower');
+      flower.style.left = Math.random() * window.innerWidth + 'px';
+      flower.style.animationDuration = 5 + Math.random() * 5 + 's';
+      document.body.appendChild(flower);
+      setTimeout(() => flower.remove(), 10000);
+    }
+  </script>
+</body>
+</html>
